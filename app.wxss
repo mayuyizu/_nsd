@@ -1,0 +1,36 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.main-body {
+  margin: 60rpx;
+  font-size: 28rpx;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.hs10 {
+  height: 20rpx;
+}
+
+.hs20 {
+  height: 40rpx;
+}
+
+.clear {
+  display: block;
+  clear: both;
+  font-size: 2rpx;
+  line-height: 2rpx;
+  margin: 0;
+  padding: 0;
+}
+
+.loginimg{
+  width: 100%;
+}

@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class="container">
+
+  <image class="loginimg" src="../../image/login.jpg" mode="widthFix"></image>
+
+  <view class='hotgoodcontainer'>
+    <view class='gooditem' wx:for="{{hotgoods}}" wx:for-index="idx" wx:for-item="good" data-nav="{{good.url}}" bindtap='navigation'>
+      <view class='imgview'>
+        <image class='productimg' src='{{good.pic_url}}'/>
+      </view>
+      <view>{{good.name}}</view>
+    </view>
+  </view>
+  
+</view>

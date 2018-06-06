@@ -1,0 +1,29 @@
+<view class="container-self">
+
+	<view class="filter-flex">
+		<view class="filter-tab">
+			<text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">工具分类</text>
+			<label bindtap="setFilterPanel" data-findex="1" class="selected">{{selectedItem}}</label>
+		</view>
+
+		<view class="filter-content" wx:if="{{showfilter}}">
+
+			<view class="filter-panel" wx:if="{{showfilterindex==1}}">
+				<view class="filter-panel-left">
+					<view wx:for="{{filterdata.cate}}" wx:key="{{item.id}}" bindtap="setCateIndex" data-cateindex="{{index}}" data-cateid="{{item.id}}" class="{{cateindex==index?'active':''}}">{{item.title}}</view>
+				</view>
+				<view class="filter-panel-right">
+					<view wx:for="{{filterdata.cate[cateindex].cate_two}}" wx:key="{{item.id}}" bindtap="setSubcateIndex" data-subcateindex="{{index}}" data-subcateid="{{item.id}}" class="{{subcateindex==index?'active':''}}">{{item.title}}</view>
+				</view>
+			</view>
+
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+	</view>
+
+	<scroll-view class="container-body" scroll-y="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
+		<view class="test-list">
+			<view class="test-item" wx:for="{{testdata}}" wx:key="{{item.id}}">{{item.name}}</view>
+		</view>
+	</scroll-view>
+</view>
