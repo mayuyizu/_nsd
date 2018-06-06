@@ -40,13 +40,109 @@ function rqLogin(username, password, successCb, errorCb, completeCb) {
 function rqOnePaperList(onePaperType, successCb, errorCb, completeCb) {
   request(api.API_ST_ONEPAPERLIST.replace(':onePaperType', onePaperType), {}, successCb, errorCb, completeCb);
 }
+function rqOnePaperDetail(onePaperID, successCb, errorCb, completeCb) {
+  request(api.API_ST_ONEPAPERDETAIL.replace(':onePaperID', onePaperID), {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 产品彩页
+ */
+function rqColorPageList(colorPageType, successCb, errorCb, completeCb) {
+  request(api.API_ST_COLORPAGELIST.replace(':colorPageType', colorPageType), {}, successCb, errorCb, completeCb);
+}
+function rqColorPageDetail(colorPageID, successCb, errorCb, completeCb) {
+  request(api.API_ST_COLORPAGEDETAIL.replace(':colorPageID', colorPageID), {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * DataSheet
+ */
+function rqDataSheetList(datasheetType, successCb, errorCb, completeCb) {
+  request(api.API_ST_DATASHEETLIST.replace(':datasheetType', datasheetType), {}, successCb, errorCb, completeCb);
+}
+function rqDataSheetDetail(datasheetID, successCb, errorCb, completeCb) {
+  request(api.API_ST_DATASHEETDETAIL.replace(':datasheetID', datasheetID), {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 资质列表
+ */
+function rqQualiDetail(successCb, errorCb, completeCb) {
+  request(api.API_ST_QUALIDETAIL, {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 技术白皮书
+ */
+function rqWhiteDetail(successCb, errorCb, completeCb) {
+  request(api.API_ST_WHITEDETAIL, {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 案例集
+ */
+function rqCaseList(caseType, successCb, errorCb, completeCb) {
+  request(api.API_ST_CASELIST.replace(':caseType', caseType), {}, successCb, errorCb, completeCb);
+}
+function rqCaseDetail(caseID, successCb, errorCb, completeCb) {
+  request(api.API_ST_CASEDETAIL.replace(':caseID', caseID), {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 需求挖掘
+ */
+function rqRequireDetail(successCb, errorCb, completeCb) {
+  request(api.API_ST_REQUIREDETAIL, {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 竞争策略
+ */
+function rqStrategyList(strategyType, successCb, errorCb, completeCb) {
+  request(api.API_ST_STRATEGYLIST.replace(':strategyType', strategyType), {}, successCb, errorCb, completeCb);
+}
+function rqStrategyDetail(strategyID, successCb, errorCb, completeCb) {
+  request(api.API_ST_STRATEGYDETAIL.replace(':strategyID', strategyID), {}, successCb, errorCb, completeCb);
+}
+
+
+/**
+ * 招标参数
+ */
+function rqTenderList(tenderType, successCb, errorCb, completeCb) {
+  request(api.API_ST_TENDERLIST.replace(':tenderType', tenderType), {}, successCb, errorCb, completeCb);
+}
+function rqTenderDetail(tenderID, successCb, errorCb, completeCb) {
+  request(api.API_ST_TENDERDETAIL.replace(':tenderID', tenderID), {}, successCb, errorCb, completeCb);
+}
+
 
 
 module.exports = {
   rqLogin: rqLogin,
+
   rqOnePaperList: rqOnePaperList,
+  rqColorPageList: rqColorPageList,
+  rqDataSheetList: rqDataSheetList,
+  rqCaseList: rqCaseList,
+  rqStrategyList: rqStrategyList,
+  rqTenderList: rqTenderList,
 
-
-  
+  rqOnePaperDetail: rqOnePaperDetail,
+  rqColorPageDetail: rqColorPageDetail,
+  rqDataSheetDetail: rqDataSheetDetail,
+  rqQualiDetail: rqQualiDetail,
+  rqWhiteDetail: rqWhiteDetail,
+  rqCaseDetail: rqCaseDetail,
+  rqRequireDetail: rqRequireDetail,
+  rqStrategyDetail: rqStrategyDetail,
+  rqTenderDetail: rqTenderDetail,
 }
 

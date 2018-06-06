@@ -125,3 +125,29 @@ page{
 	padding: 20rpx;
 	border-bottom: 1rpx solid #ddd;
 }
+
+.single_goods {
+  position: relative;
+  height: 100px;
+  background-color: #FFF;
+  padding-left: 100px;
+  border-bottom: 1px solid #E7E7EB;
+}
+.single_image_wrap {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.single_goods_image {
+  width: 80px;
+  height: 80px;
+}
+.single_goods_address {
+  padding-top: 10rpx;
+  color: #929292;
+  font-size: 12px;
+}
+.single_goods_name {
+  padding-top: 30rpx;
+  font-size: 14px;
+}

@@ -1,1 +1,38 @@
-/* pages/saletool/detail/detail.wxss */
+.swiper-item{
+  display: block;
+}
+.slide-image {
+  width: 100%;
+}
+
+.goods_infor_top {
+  background-color: #FFF;
+}
+
+.goods_title {
+  font-size: 15px;
+  line-height: 30px;
+  text-align: center;
+  padding: 10rpx;
+  height: 30px;
+  position: relative;
+}
+
+.content{
+  font-size: 13px;
+  margin: 20rpx;
+  color: #535353;
+}
+
+.btn_pdf{
+  width: 100%;
+  text-align: center;
+  
+}
+
+.goods_deliver {
+  margin-top: 20rpx;
+  border-top: 1px solid #E5E5E5;
+  color: #676767;
+}
+

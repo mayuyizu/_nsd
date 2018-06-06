@@ -1,2 +1,19 @@
-<!--pages/saletool/detail/detail.wxml-->
-<text>pages/saletool/detail/detail.wxml</text>
+<view>
+  <swiper indicator-dots="{{indicatorDots}}" 
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<view class="goods_infor_top">
+  <view class="goods_title">
+    木村耀司登山旅行大学背包外带小背包
+  </view>
+  <view class="content">蜜蜂从植物的花中采取含水量约为75%的花蜜或分泌物，存入自己第二个胃中，在体内多种转化的作用下，经过15天左右反复酝酿各种维生素、矿物质和氨基酸丰富到一定的数值时，同时把花蜜中的多糖转变成人体可直接吸收的单糖葡萄糖、果糖，水分含量少于23%存贮到巢洞中，用蜂蜡密封。</view>
+  <view class="btn_pdf"><button type="warn" size="mini" bindtap="warn" > 查看完整PDF </button></view>
+</view>
+<view class="goods_deliver"></view>

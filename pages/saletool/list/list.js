@@ -11,6 +11,7 @@ Page({
     catetitle: "", //一级分类title
     subcateindex: -1, //二级分类索引
     subcatevalue: "", //二级分类value
+    listdata: [],//
     page: 0  //分页
   },
 
@@ -320,7 +321,7 @@ Page({
       subcatevalue: d.filterdata.cate[d.cateindex].cate_two[dataset.subcateindex].value,
       selectedItem: d.catetitle + " / " + d.filterdata.cate[d.cateindex].cate_two[dataset.subcateindex].title
     });
-    console.log(subcatevalue);
+    console.log(d.subcatevalue);
     this.getList();
   },
 
@@ -334,32 +335,49 @@ Page({
         this.getOnePaperList();
         break;
       case "产品彩页":
-        this.getOnePaperList();
+        this.getColorPageList();
         break;
       case "DataSheet":
-        this.getOnePaperList();
+        this.getDataSheetList();
         break;
       case "资质列表":
-        this.getOnePaperList();
+        wx.navigateTo({
+          url: '../detail/detail?_type=' + this.data.catetitle + '&_id=' + this.data.subcatevalue,
+        })
         break;
       case "技术白皮书":
-        this.getOnePaperList();
+        wx.navigateTo({
+          url: '../detail/detail?_type=' + this.data.catetitle + '&_id=' + this.data.subcatevalue,
+        })
         break;
       case "案例集":
-        this.getOnePaperList();
+        this.getCaseList();
         break;
       case "需求挖掘":
-        this.getOnePaperList();
+        wx.navigateTo({
+          url: '../detail/detail?_type=' + this.data.catetitle + '&_id=' + this.data.subcatevalue,
+        })
         break;
       case "竞争策略":
-        this.getOnePaperList();
+        this.getStrategyList();
         break;
       case "招标参数":
-        this.getOnePaperList();
+        this.getTenderList();
         break;
         
       default:break;
     }
+  },
+
+  /**
+   * 
+   */
+  toDetail:function(e){
+    console.log(e);
+    const _id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../detail/detail?_type=' + this.data.catetitle + '&_id=' + _id,
+    })
   },
   
   hideFilter: function () { //关闭筛选面板
@@ -369,35 +387,234 @@ Page({
     })
   },
 
+  cleardata: function () { //关闭筛选面板
+    this.setData({
+      listdata: []
+    })
+  },
+
   /**
-   * 获取一纸通列表数据
+   * 一纸通
    */
   getOnePaperList: function () {
     const d = this.data;
     request.rqOnePaperList(d.subcatevalue, (data) => {
+      let _this = this;
       console.log(data);
-      // if (0 == data.code) {
-      //   wx.showToast({
-      //     title: '登录成功',
-      //     icon: 'success',
-      //     duration: 2000
-      //   });
-      //   setTimeout(function () {
-      //     wx.navigateTo({
-      //       url: '../index/index',
-      //     });
-      //   }, 1000);
-      // } else {
-      //   wx.showToast({
-      //     title: '登录失败',
-      //     icon: 'none',
-      //     duration: 2000
-      //   })
-      // }
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading'
+      });
+      _this.cleardata();
+      const newlist = [];
+      let onePaperList = data.data.onePaperList;
+      for (var i = 0; i < onePaperList.length; i++) {
+        newlist.push({
+          "id": onePaperList[i].onePaperID,
+          "name": onePaperList[i].onePaperName,
+          "des": onePaperList[i].onePaperIntroduction,
+          "thumb": "" == onePaperList[i].thumbImg ? "../../../image/def.png" : onePaperList[i].thumbImg
+        })
+      }
+      _this.setData({
+        listdata: _this.data.listdata.concat(newlist)
+      });
+
     }, () => {
       console.log('e');
     }, () => {
-      console.log('c');
+      this.hideFilter();
+    });
+  },
+
+  /**
+   * 产品彩页
+   */
+  getColorPageList: function () {
+    const d = this.data;
+    request.rqColorPageList(d.subcatevalue, (data) => {
+      let _this = this;
+      console.log(data);
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading'
+      });
+      _this.cleardata();
+      const newlist = [];
+      let colorPageList = data.data.colorPageList;
+      for (var i = 0; i < colorPageList.length; i++) {
+        newlist.push({
+          "id": colorPageList[i].colorPageID,
+          "name": colorPageList[i].colorPageName,
+          "des": colorPageList[i].colorPageIntroduction,
+          "thumb": "" == colorPageList[i].thumbImg ? "../../../image/def.png" : colorPageList[i].thumbImg
+        })
+      }
+      _this.setData({
+        listdata: _this.data.listdata.concat(newlist)
+      });
+
+    }, () => {
+      console.log('e');
+    }, () => {
+      this.hideFilter();
+    });
+  },
+
+  /**
+   * DataSheet
+   */
+  getDataSheetList: function () {
+    const d = this.data;
+    request.rqDataSheetList(d.subcatevalue, (data) => {
+      let _this = this;
+      console.log(data);
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading'
+      });
+      _this.cleardata();
+      const newlist = [];
+      let datasheetList = data.data.datasheetList;
+      for (var i = 0; i < datasheetList.length; i++) {
+        newlist.push({
+          "id": datasheetList[i].datasheetID,
+          "name": datasheetList[i].datasheetName,
+          "des": datasheetList[i].datasheetIntroduction,
+          "thumb": "" == datasheetList[i].thumbImg ? "../../../image/def.png" : datasheetList[i].thumbImg
+        })
+      }
+      _this.setData({
+        listdata: _this.data.listdata.concat(newlist)
+      });
+
+    }, () => {
+      console.log('e');
+    }, () => {
+      this.hideFilter();
+    });
+  },
+
+  /**
+   * 资质列表
+   */
+  getQualiList: function () {
+    
+  },
+
+  /**
+   * 技术白皮书
+   */
+  getWhiteList: function () {
+    
+  },
+
+  /**
+   * 案例集
+   */
+  getCaseList: function () {
+    const d = this.data;
+    request.rqCaseList(d.subcatevalue, (data) => {
+      let _this = this;
+      console.log(data);
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading'
+      });
+      _this.cleardata();
+      const newlist = [];
+      let caseList = data.data.caseList;
+      for (var i = 0; i < caseList.length; i++) {
+        newlist.push({
+          "id": caseList[i].caseID,
+          "name": caseList[i].caseName,
+          "des": caseList[i].caseIntroduction,
+          "thumb": "" == caseList[i].thumbImg ? "../../../image/def.png" : caseList[i].thumbImg
+        })
+      }
+      _this.setData({
+        listdata: _this.data.listdata.concat(newlist)
+      });
+
+    }, () => {
+      console.log('e');
+    }, () => {
+      this.hideFilter();
+    });
+  },
+
+  /**
+   * 需求挖掘
+   */
+  getRequireList: function () {
+    
+  },
+
+  /**
+   * 竞争策略
+   */
+  getStrategyList: function () {
+    const d = this.data;
+    request.rqStrategyList(d.subcatevalue, (data) => {
+      let _this = this;
+      console.log(data);
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading'
+      });
+      _this.cleardata();
+      const newlist = [];
+      let strategyList = data.data.strategyList;
+      for (var i = 0; i < strategyList.length; i++) {
+        newlist.push({
+          "id": strategyList[i].strategyID,
+          "name": strategyList[i].strategyName,
+          "des": strategyList[i].strategyIntroduction,
+          "thumb": "" == strategyList[i].thumbImg ? "../../../image/def.png" : strategyList[i].thumbImg
+        })
+      }
+      _this.setData({
+        listdata: _this.data.listdata.concat(newlist)
+      });
+
+    }, () => {
+      console.log('e');
+    }, () => {
+      this.hideFilter();
+    });
+  },
+
+  /**
+   * 招标参数
+   */
+  getTenderList: function () {
+    const d = this.data;
+    request.rqTenderList(d.subcatevalue, (data) => {
+      let _this = this;
+      console.log(data);
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading'
+      });
+      _this.cleardata();
+      const newlist = [];
+      let tenderList = data.data.tenderList;
+      for (var i = 0; i < tenderList.length; i++) {
+        newlist.push({
+          "id": tenderList[i].tenderID,
+          "name": tenderList[i].tenderName,
+          "des": tenderList[i].tenderIntroduction,
+          "thumb": "" == tenderList[i].thumbImg ? "../../../image/def.png" : tenderList[i].thumbImg
+        })
+      }
+      _this.setData({
+        listdata: _this.data.listdata.concat(newlist)
+      });
+
+    }, () => {
+      console.log('e');
+    }, () => {
+      this.hideFilter();
     });
   },
 
