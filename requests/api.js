@@ -27,11 +27,11 @@ module.exports = {
 
 
   //资质列表
-  API_ST_QUALIDETAIL: API_BASE + 'sale.qualification.getQualificationDetailMobile.json?qualificationType=""',
+  API_ST_QUALIDETAIL: API_BASE + 'sale.qualification.getQualificationDetailMobile.json?qualificationType=":qualificationType"',
 
 
   //技术白皮书
-  API_ST_WHITEDETAIL: API_BASE + 'sale.whitepaper.getWhitepaperDetailMobile.json?whitepaperType=""',
+  API_ST_WHITEDETAIL: API_BASE + 'sale.whitepaper.getWhitepaperDetailMobile.json?whitepaperType=":whitepaperType"',
 
 
   //案例集

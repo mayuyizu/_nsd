@@ -1,11 +1,13 @@
 {
   "pages":[
-"pages/saletool/detail/detail",
+    "pages/price/list/list",
     "pages/saletool/list/list",
+    "pages/saletool/detail/detail",
+    
     "pages/login/login",
     "pages/index/index",
     
-    "pages/price/list/list",
+    
     
     
     "pages/price/detail/detail",

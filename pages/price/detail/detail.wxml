@@ -1,2 +1,179 @@
-<!--pages/price/detail/detail.wxml-->
-<text>pages/price/detail/detail.wxml</text>
+<import src="../../template/foot.wxml"/>
+
+  <view wx:if="{{imgUrls.length}}">
+    <swiper indicator-dots="{{indicatorDots}}" 
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item.url}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+<view wx:if="{{_type == '一纸通'}}">
+  <view class="goods_infor_top">
+    <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="goods_title_left ellipsis1">{{item.title}}</view>
+    <view class="content">{{item.content}}</view>
+    <view wx:if="{{item.img}}" class='detailImg'><image bindtap='bigImg' data-src="{{item.img}}" src="{{item.img}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '产品彩页'}}">
+  <view class="goods_infor_top">
+    <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="goods_title_left ellipsis1">{{item.title}}</view>
+    <view class="content">{{item.content}}</view>
+    <view wx:if="{{item.img}}" class='detailImg'><image bindtap='bigImg' data-src="{{item.img}}" src="{{item.img}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == 'DataSheet'}}">
+  <view class="goods_infor_top">
+    <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="goods_title_left ellipsis1">{{item.title}}</view>
+    <view class="content">{{item.content}}</view>
+    <view wx:if="{{item.img}}" class='detailImg'><image bindtap='bigImg' data-src="{{item.img}}" src="{{item.img}}" mode='aspectFit'></image></view>
+  </view>
+  <view class="goods_infor_top" wx:if="{{texingImg}}" >
+    <view class="goods_title_left ellipsis1">特性列表</view>
+    <view class='detailImg'><image bindtap='bigImg' data-src="{{texingImg}}" src="{{texingImg}}" mode='aspectFit'></image></view>
+  </view>
+  <view class="goods_infor_top" wx:if="{{yingyongImg}}" >
+    <view class="goods_title_left ellipsis1">应用场景</view>
+    <view class='detailImg'><image bindtap='bigImg' data-src="{{yingyongImg}}" src="{{yingyongImg}}" mode='aspectFit'></image></view>
+  </view>
+  <view class="goods_infor_top" wx:if="{{guanjianImg}}" >
+    <view class="goods_title_left ellipsis1">关键指标</view>
+    <view class='detailImg'><image bindtap='bigImg' data-src="{{guanjianImg}}" src="{{guanjianImg}}" mode='aspectFit'></image></view>
+  </view>
+  <view class="goods_infor_top" wx:if="{{kuozhanImg}}" >
+    <view class="goods_title_left ellipsis1">扩展模块</view>
+    <view class='detailImg'><image bindtap='bigImg' data-src="{{kuozhanImg}}" src="{{kuozhanImg}}" mode='aspectFit'></image></view>
+  </view>
+  <view class="goods_infor_top" wx:if="{{ruanjianImg}}" >
+    <view class="goods_title_left ellipsis1">软件模块</view>
+    <view class='detailImg'><image bindtap='bigImg' data-src="{{ruanjianImg}}" src="{{ruanjianImg}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '资质列表'}}">
+  <view class="goods_infor_top">
+    <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view wx:for="{{zizhiList}}" class="zizhi-item">
+    <view>
+      <label>资质名称</label>
+      <text>{{item.name}}</text>
+    </view>
+    <view>
+      <label>有效时间</label>
+      <text>{{item.time}}</text>
+    </view>
+    <view class="goods_deliver"></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '技术白皮书'}}">
+  <view class="goods_infor_top">
+    <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="goods_title_left ellipsis1">{{item.title}}</view>
+    <view class="content">{{item.content}}</view>
+    <view wx:if="{{item.img}}" class='detailImg'><image bindtap='bigImg' data-src="{{item.img}}" src="{{item.img}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '案例集'}}">
+  <view class="goods_infor_top">
+    <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top">
+    <view class="goods_title_left ellipsis1">用户需求</view>
+    <view class="content">{{userRequirement}}</view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top">
+    <view class="goods_title_left ellipsis1">解决方案</view>
+    <view class="content">{{userSolution}}</view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top">
+    <view class="goods_title_left ellipsis1">方案价值</view>
+    <view class="content">{{caseValue}}</view>
+  </view>
+  <view class="goods_infor_top">
+    <view wx:if="{{solutionImg}}" class='detailImg'><image bindtap='bigImg' data-src="{{solutionImg}}" src="{{solutionImg}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '需求挖掘'}}">
+  <view class="goods_infor_top">
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="title ellipsis1" style='font-size:35rpx; padding:10rpx;'>{{stName}}</view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="content">{{item.content}}</view>
+    <view class="goods_deliver"></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '竞争策略'}}">
+  <view class="goods_infor_top">
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top">
+    <view class="goods_title_left ellipsis1">{{stName}}</view>
+    <view class="content">{{strategy}}</view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="goods_title_left ellipsis1">{{item.title}}</view>
+    <view wx:if="{{item.img}}" class='detailImg'><image bindtap='bigImg' data-src="{{item.img}}" src="{{item.img}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<view wx:if="{{_type == '招标参数'}}">
+  <view class="goods_infor_top">
+  <view class="goods_title ellipsis1">{{stName}}</view>
+    <view class="content">{{stIntroduction}}</view>
+    <view wx:if="{{pdfUrl}}" class="btn_pdf"><button type="warn" size="mini" bindtap='downPDF' data-url="{{pdfUrl}}">查看完整PDF</button></view>
+    <view class="goods_deliver"></view>
+  </view>
+  <view class="goods_infor_top" wx:for="{{featureList}}">
+    <view class="goods_title_left ellipsis1">{{item.title}}</view>
+    <view wx:if="{{item.img}}" class='detailImg'><image bindtap='bigImg' data-src="{{item.img}}" src="{{item.img}}" mode='aspectFit'></image></view>
+  </view>
+</view>
+
+<template is="foot"></template>

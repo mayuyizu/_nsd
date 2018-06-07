@@ -1,4 +1,3 @@
-const api = require('../../../requests/api.js')
 const request = require('../../../requests/request.js')
 
 Page({
@@ -157,6 +156,11 @@ Page({
             "id": 5,
             "title": "案例集",
             "cate_two": [
+              {
+                "id": -1,
+                "title": "全部",
+                "value": ""
+              },
               {
                 "id": 0,
                 "title": "公共事业",

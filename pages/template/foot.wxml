@@ -1,0 +1,5 @@
+<template name="foot">
+  <view class="mt40 p20 footer">
+    <label>版权所有 © 2001-2018 东软集团股份有限公司</label>
+  </view>
+</template>

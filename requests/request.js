@@ -70,16 +70,16 @@ function rqDataSheetDetail(datasheetID, successCb, errorCb, completeCb) {
 /**
  * 资质列表
  */
-function rqQualiDetail(successCb, errorCb, completeCb) {
-  request(api.API_ST_QUALIDETAIL, {}, successCb, errorCb, completeCb);
+function rqQualiDetail(qualificationType, successCb, errorCb, completeCb) {
+  request(api.API_ST_QUALIDETAIL.replace(':qualificationType', qualificationType), {}, successCb, errorCb, completeCb);
 }
 
 
 /**
  * 技术白皮书
  */
-function rqWhiteDetail(successCb, errorCb, completeCb) {
-  request(api.API_ST_WHITEDETAIL, {}, successCb, errorCb, completeCb);
+function rqWhiteDetail(whitepaperType, successCb, errorCb, completeCb) {
+  request(api.API_ST_WHITEDETAIL.replace(':whitepaperType', whitepaperType), {}, successCb, errorCb, completeCb);
 }
 
 

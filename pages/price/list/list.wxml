@@ -1,2 +1,114 @@
-<!--pages/price/list/list.wxml-->
-<text>pages/price/list/list.wxml</text>
+<view class="container-self">
+
+	<view class="filter-flex">
+		<view class="filter-tab">
+			<text bindtap="setFilterPanel" data-findex="1" class="{{showfilterindex==1?'active':''}}">{{typetitle}}</text>
+      <text bindtap="setFilterPanel" data-findex="2" class="{{showfilterindex==2?'active':''}}">{{heighttitle}}</text>
+      <text bindtap="setFilterPanel" data-findex="3" class="{{showfilterindex==3?'active':''}}">{{slottitle}}</text>
+      <text bindtap="setFilterPanel" data-findex="4" class="{{showfilterindex==4?'active':''}}">更多</text>
+		</view>
+
+		<view class="filter-content" wx:if="{{showfilter}}">
+			<view class="filter-panel" wx:if="{{showfilterindex==1}}">
+				<view class="filter-panel-left">
+					<view wx:for="{{filterdata.type}}" wx:key="{{item.id}}" bindtap="setTypeIndex" data-typeindex="{{index}}" class="{{typeindex==index?'active':''}}">{{item.title}}</view>
+				</view>
+			</view>
+      <view class="filter-panel" wx:if="{{showfilterindex==2}}">
+				<view class="filter-panel-left">
+					<view wx:for="{{filterdata.height}}" wx:key="{{item.id}}" bindtap="setHeightIndex" data-heightindex="{{index}}" class="{{heightindex==index?'active':''}}">{{item.title}}</view>
+				</view>
+			</view>
+      <view class="filter-panel" wx:if="{{showfilterindex==3}}">
+				<view class="filter-panel-left">
+					<view wx:for="{{filterdata.slot}}" wx:key="{{item.id}}" bindtap="setSlotIndex" data-slotindex="{{index}}"  class="{{slotindex==index?'active':''}}">{{item.title}}</view>
+				</view>
+			</view>
+      <view class="filter-expand" wx:if="{{showfilterindex==4}}">
+        <view class="filter-expand-body">
+          <form bindreset="cleanInput" bindsubmit='btn_search'>
+            <view class="filter-input" style="padding-top:40rpx;">
+                <text>价格（万）</text>
+                <input type='digit' value="{{_price}}" name="_price"></input>
+                <label>—</label>
+                <input type='digit' value="{{price_}}" name="price_"></input>
+            </view>
+            <view class="filter-input">
+                <text>整机吞吐量（Gbps）</text>
+                <input type='digit' value="{{_ji}}" name="_ji"></input>
+                <label>—</label>
+                <input type='digit' value="{{ji_}}" name="ji_"></input>
+            </view>
+            <view class="filter-input">
+                <text>千兆接口数（个）</text>
+                <input type='number' value="{{_qianzhao}}" name="_qianzhao"></input>
+                <label>—</label>
+                <input type='number' value="{{qianzhao_}}" name="qianzhao_"></input>
+            </view>
+            <view class="filter-input">
+                <text>万兆接口数（个）</text>
+                <input type='number' value="{{_wanzhao}}" name="_wanzhao"></input>
+                <label>—</label>
+                <input type='number' value="{{wanzhao_}}" name="wanzhao_"></input>
+            </view>
+            <view class="filter-input">
+                <text>并发连接数（万）</text>
+                <input type='digit' value="{{_bingfa}}" name="_bingfa"></input>
+                <label>—</label>
+                <input type='digit' value="{{bingfa_}}" name="bingfa_"></input>
+            </view>
+            <view class="filter-input">
+                <text>新建连接数（万）</text>
+                <input type='digit' value="{{_new}}" name="_new"></input>
+                <label>—</label>
+                <input type='digit' value="{{new_}}" name="new_"></input>
+            </view>
+            <view class="filter-input">
+                <text>IPS吞吐量（Gbps）</text>
+                <input type='digit' value="{{_ips}}" name="_ips"></input>
+                <label>—</label>
+                <input type='digit' value="{{ips_}}" name="ips_"></input>
+            </view>
+            <view class="filter-input">
+                <text>IPsecVPN吞吐量（Gbps）</text>
+                <input type='digit' value="{{_ipsec}}" name="_ipsec"></input>
+                <label>—</label>
+                <input type='digit' value="{{ipsec_}}" name="ipsec_"></input>
+            </view>
+            <view class="filter-input">
+                <text>SSLVPN吞吐量（Gbps）</text>
+                <input type='digit' value="{{_ssl}}" name="_ssl"></input>
+                <label>—</label>
+                <input type='digit' value="{{ssl_}}" name="ssl_"></input>
+            </view>
+            <view class="filter-input">
+                <text>防病毒吞吐量（Gbps）</text>
+                <input type='digit' value="{{_bingdu}}" name="_bingdu"></input>
+                <label>—</label>
+                <input type='digit' value="{{bingdu_}}" name="bingdu_"></input>
+            </view>
+            <view class="btn">
+              <button class="btn_reset" formType="reset">重置</button>
+              <button class="btn_search" form-type='submit'>搜索</button>
+            </view>
+          </form>
+        </view>
+			</view>
+		</view>
+		<view class="filter-shadow" wx:if="{{showfilter}}" bindtap="hideFilter"></view>
+	</view>
+
+	<scroll-view class="container-body" scroll-y="true" scroll-top="{{scrolltop}}" bindscroll="scrollHandle" lower-threshold="50" bindscrolltolower="scrollLoading">
+		<view class="single_goods"  wx:for="{{listdata}}" data-id="{{item.id}}" bindtap='toDetail'>
+			<view class="single_image_wrap">
+        <image src="{{item.thumb}}" class="single_goods_image"></image>
+      </view>
+      <view class="single_goods_name ellipsis1">
+        <text>{{item.name}}</text>
+      </view>
+      <view class="single_goods_address ellipsis2">
+        <text>{{item.des}}</text>
+      </view>
+		</view>
+	</scroll-view>
+</view>
