@@ -33,6 +33,47 @@ App({
       }
     })
   },
+
+  toast1(obj) {
+    var { pointer, info, duration } = obj;
+    pointer.setData({
+      toast1: {
+        show: true,
+        alertWarn: 'warn',
+        info: info
+      }
+    })
+
+    setTimeout(() => {
+      pointer.setData({
+        toast1: {
+          show: false,
+          alertWarn: 'warn',
+          info: ''
+        }
+      })
+    }, duration)
+  },
+
+  toast2(obj) {
+    var { pointer, title, content, duration } = obj;
+    pointer.setData({
+      toast2: {
+        show: true,
+        title: title,
+        content: content
+      }
+    })
+
+    setTimeout(() => {
+      pointer.setData({
+        toast2: {
+          show: false
+        }
+      })
+    }, duration)
+  },
+  
   globalData: {
     userInfo: null
   }

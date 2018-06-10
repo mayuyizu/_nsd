@@ -1,5 +1,6 @@
 const request = require('../../../requests/request.js')
 const util = require('../../../utils/util.js')
+var app = getApp();
 
 Page({
   data: {
@@ -10,80 +11,37 @@ Page({
     interval: 2500,
     duration: 1200,
     
-    _type: "", //一级分类
-    _id: "", //二级分类
-    stName: "", //名称
-    stIntroduction: "", //简介
-    pdfUrl: "", //PDF
-    featureList: [], //亮点数组
+    num: 1, //数量
+    goldnum: 1, //金牌
+    silvernum: 1, //银牌
+    coppernum: 1, //铜牌
+    numPrice: 12, //裸机价格
+    goldPrice: 12, //金牌价格
+    silverPrice: 12, //银牌价格
+    copperPrice: 12, //铜牌价格
+    hardList: [
+      { "PN": "OpenStack-LBaaSController-LIC-50", "hardnum": 1, "hardPrice": 12, "hardTip": "hardTip"}
+    ], //硬件模块
+    softList: [
+      { "PN": "OpenStack-LBaaSController-LIC-50", "softnum": 1, "softPrice": 22, "softTip": "softTip" }
+    ], //软件模块
 
-    //DataSheet
-    texingImg: "", //特性列表图片
-    yingyongImg: "", //应用场景图片
-    guanjianImg: "", //关键指标图片
-    kuozhanImg: "", //扩展模块图片
-    ruanjianImg: "", //软件模块图片
-
-    //资质列表
-    zizhiList: [],//
-
-    //案例集
-    userRequirement:"", //用户需求
-    userSolution:"", //解决方案
-    caseValue:"", //方案价值
-    solutionImg:"", //方案图片
-
-    //竞争策略
-    strategy:"", //策略内容
-
-
+    stName: "NISG1001001", //名称
+    stIntroduction: "东软 NetEye 集成安全网关 (NISG) 采用业界领先的多核并行计算架构， 以东软多年创新的流过滤检测技术为核心， 通过模块化设计融合了多种安全技术。", //简介
+    toast1: {
+      show: false,
+      alertWarn: 'warn',
+      info: ''
+    },
+    toast2: {
+      show: false
+    }
   },
   
   onLoad: function(e){
-    console.log(e);
-    this.setData({
-      _type: e._type,
-      _id: e._id,
-    })
   },
 
   onReady: function(){
-      this.getDetail();
-  },
-
-  getDetail: function(){
-    const d = this.data;
-    switch (d._type) {
-      case "一纸通":
-        this.getOnePaperDetail();
-        break;
-      case "产品彩页":
-        this.getColorPageDetail();
-        break;
-      case "DataSheet":
-        this.getDataSheetDetail();
-        break;
-      case "资质列表":
-        this.getQualiDetail();
-        break;
-      case "技术白皮书":
-        this.getWhiteDetail();
-        break;
-      case "案例集":
-        this.getCaseDetail();
-        break;
-      case "需求挖掘":
-        this.getRequireDetail();
-        break;
-      case "竞争策略":
-        this.getStrategyDetail();
-        break;
-      case "招标参数":
-        this.getTenderDetail();
-        break;
-
-      default: break;
-    }
   },
 
   /**
@@ -91,7 +49,7 @@ Page({
    */
   getOnePaperDetail: function () {
     const d = this.data;
-    request.rqOnePaperDetail(d._id, (data) => {
+    request.rqOnePaperDetail("1527816822823", (data) => {
       let _this = this;
       console.log(data);
       wx.showToast({
@@ -128,355 +86,79 @@ Page({
     });
   },
 
-  /**
-   * 产品彩页
-   */
-  getColorPageDetail: function () {
-    const d = this.data;
-    request.rqColorPageDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let colorPageImgList = data.data.colorPageImgList;
-      for (var i = 0; i < colorPageImgList.length; i++) {
-        newlist1.push({
-          "url": colorPageImgList[i],
-        })
-      }
-      const newlist2 = [];
-      let colorPageFeatureList = data.data.colorPageFeatureList;
-      for (var i = 0; i < colorPageFeatureList.length; i++) {
-        newlist2.push({
-          "id": colorPageFeatureList[i].featureID,
-          "title": colorPageFeatureList[i].featureTitle,
-          "content": colorPageFeatureList[i].featureContent,
-          "img": colorPageFeatureList[i].featureImg.length == 0 ? "" : colorPageFeatureList[i].featureImg[0].url
-        })
-      }
-      _this.setData({
-        stName: data.data.colorPageName,
-        stIntroduction: data.data.colorPageIntroduction,
-        pdfUrl: ""==data.data.pdfFile?"":data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        featureList: _this.data.featureList.concat(newlist2)
-      });
-
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
+  alertWarn: function (e) { //提示信息框
+    let _type = e.currentTarget.dataset.type;
+    console.log(_type);
+    let _title = "";
+    let _content = "";
+    var obj = {
+      pointer: this,
+      title:'title',
+      content:'content',
+      duration: 3000
+    }
+    app.toast2(obj);
   },
 
-  /**
-   * DataSheet
-   */
-  getDataSheetDetail: function () {
-    const d = this.data;
-    request.rqDataSheetDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let datasheetImgList = data.data.datasheetImgList;
-      for (var i = 0; i < datasheetImgList.length; i++) {
-        newlist1.push({
-          "url": datasheetImgList[i],
-        })
+  minusNum: function () { //购买数量-
+    this.data.num--;
+    if(this.data.num>=0){
+      this.setData({
+        num:this.data.num
+      })
+    }else{
+      this.data.num++;
+      var obj = {
+        pointer: this,
+        info: '数量不能小于0！',
+        duration: 2000
       }
-      const newlist2 = [];
-      let datasheetFeatureList = data.data.datasheetFeatureList;
-      for (var i = 0; i < datasheetFeatureList.length; i++) {
-        newlist2.push({
-          "id": datasheetFeatureList[i].featureID,
-          "title": datasheetFeatureList[i].featureTitle,
-          "content": datasheetFeatureList[i].featureContent,
-          "img": datasheetFeatureList[i].featureImg.length == 0 ? "" : datasheetFeatureList[i].featureImg[0].url
-        })
-      }
-      _this.setData({
-        stName: data.data.datasheetName,
-        stIntroduction: data.data.datasheetIntroduction,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        featureList: _this.data.featureList.concat(newlist2),
-        texingImg: "" == data.data.featurelistImg.img ? "" : data.data.featurelistImg.img[0].url,
-        yingyongImg: "" == data.data.applicationsceneImg.img ? "" : data.data.applicationsceneImg.img[0].url,
-        guanjianImg: "" == data.data.keyImg.img ? "" : data.data.keyImg.img[0].url,
-        kuozhanImg: "" == data.data.extendedImg.img ? "" : data.data.extendedImg.img[0].url,
-        ruanjianImg: "" == data.data.softwareImg.img ? "" : data.data.softwareImg.img[0].url,
-      });
-
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
+      app.toast1(obj);
+    }
   },
 
-  /**
-   * 资质列表
-   */
-  getQualiDetail: function () {
-    const d = this.data;
-    request.rqQualiDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let qualificationImgList = data.data.qualificationImgList;
-      for (var i = 0; i < qualificationImgList.length; i++) {
-        newlist1.push({
-          "url": qualificationImgList[i],
-        })
-      }
-      const newlist2 = [];
-      let qualificationList = data.data.qualificationList;
-      for (var i = 0; i < qualificationList.length; i++) {
-        newlist2.push({
-          "name": qualificationList[i].qualificationName,
-          "time": qualificationList[i].qualificationIndate
-        })
-      }
-      _this.setData({
-        stName: "资质列表",
-        stIntroduction: data.data.qualificationIntroduction,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        zizhiList: _this.data.featureList.concat(newlist2)
-      });
+  plusNum: function () { //购买数量+
 
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
   },
 
-  /**
-   * 技术白皮书
-   */
-  getWhiteDetail: function () {
-    const d = this.data;
-    request.rqWhiteDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let whitepaperImgList = data.data.whitepaperImgList;
-      for (var i = 0; i < whitepaperImgList.length; i++) {
-        newlist1.push({
-          "url": whitepaperImgList[i],
-        })
-      }
-      const newlist2 = [];
-      let whitepaperFeatureList = data.data.whitepaperFeatureList;
-      for (var i = 0; i < whitepaperFeatureList.length; i++) {
-        newlist2.push({
-          "id": whitepaperFeatureList[i].featureID,
-          "title": whitepaperFeatureList[i].featureTitle,
-          "content": whitepaperFeatureList[i].featureContent,
-          "img": whitepaperFeatureList[i].featureImg.length == 0 ? "" : whitepaperFeatureList[i].featureImg[0].url
-        })
-      }
-      _this.setData({
-        stName: "技术白皮书",
-        stIntroduction: data.data.whitepaperIntroduction,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        featureList: _this.data.featureList.concat(newlist2)
-      });
+  minusGoldNum: function () { //金牌数量-
 
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
   },
 
-  /**
-  * 案例集
-  */
-  getCaseDetail: function () {
-    const d = this.data;
-    request.rqCaseDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let caseImgList = data.data.caseImgList;
-      for (var i = 0; i < caseImgList.length; i++) {
-        newlist1.push({
-          "url": caseImgList[i],
-        })
-      }
-      _this.setData({
-        stName: data.data.caseName,
-        stIntroduction: data.data.caseIntroduction,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        userRequirement: data.data.userRequirement,
-        userSolution: data.data.userSolution,
-        caseValue: data.data.caseValue,
-        solutionImg: "" == data.data.solutionImg ? "" : data.data.solutionImg[0].url,
-      });
+  plusGoldNum: function () { //金牌数量+
 
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
   },
 
-  /**
-   * 需求挖掘
-   */
-  getRequireDetail: function () {
-    const d = this.data;
-    request.rqRequireDetail((data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let demandImgList = data.data.demandImgList;
-      for (var i = 0; i < demandImgList.length; i++) {
-        newlist1.push({
-          "url": demandImgList[i],
-        })
-      }
-      const newlist2 = [];
-      let demandList = data.data.demandList;
-      for (var i = 0; i < demandList.length; i++) {
-        newlist2.push({
-          "content": demandList[i],
-        })
-      }
-      _this.setData({
-        stName:"需求列表",
-        stIntroduction: data.data.demandIntroduction,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        featureList: _this.data.featureList.concat(newlist2)
-      });
-      
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
+  minusSilverNum: function () { //银牌数量-
+
   },
 
-  /**
-   * 竞争策略
-   */
-  getStrategyDetail: function () {
-    const d = this.data;
-    request.rqStrategyDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let strategyImgList = data.data.strategyImgList;
-      for (var i = 0; i < strategyImgList.length; i++) {
-        newlist1.push({
-          "url": strategyImgList[i],
-        })
-      }
-      const newlist2 = [];
-      let analysisList = data.data.analysisList;
-      for (var i = 0; i < analysisList.length; i++) {
-        newlist2.push({
-          "id": analysisList[i].analysisID,
-          "title": analysisList[i].analysisTitle,
-          "img": analysisList[i].analysisImg.length == 0 ? "" : analysisList[i].analysisImg[0].url
-        })
-      }
-      _this.setData({
-        stName: data.data.strategyName,
-        stIntroduction: data.data.strategyIntroduction,
-        strategy: data.data.strategy,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        featureList: _this.data.featureList.concat(newlist2)
-      });
+  plusSilverNum: function () { //银牌数量+
 
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
   },
 
-  /**
-   * 招标参数
-   */
-  getTenderDetail: function () {
-    const d = this.data;
-    request.rqTenderDetail(d._id, (data) => {
-      let _this = this;
-      console.log(data);
-      wx.showToast({
-        title: '加载中',
-        icon: 'loading'
-      });
-      const newlist1 = [];
-      let tenderImgList = data.data.tenderImgList;
-      for (var i = 0; i < tenderImgList.length; i++) {
-        newlist1.push({
-          "url": tenderImgList[i],
-        })
-      }
-      const newlist2 = [];
-      let tenderList = data.data.tenderList;
-      for (var i = 0; i < tenderList.length; i++) {
-        newlist2.push({
-          "id": tenderList[i].tenderItemID,
-          "title": tenderList[i].tenderItemTitle,
-          "img": tenderList[i].tenderItemImg.length == 0 ? "" : tenderList[i].tenderItemImg[0].url
-        })
-      }
-      _this.setData({
-        stName: data.data.tenderName,
-        stIntroduction: data.data.tenderIntroduction,
-        pdfUrl: "" == data.data.pdfFile ? "" : data.data.pdfFile[0].url,
-        imgUrls: _this.data.imgUrls.concat(newlist1),
-        featureList: _this.data.featureList.concat(newlist2)
-      });
+  minusCopperNum: function () { //铜牌数量-
 
-    }, () => {
-      console.log('e');
-    }, () => {
-    });
   },
 
+  plusCopperNum: function () { //铜牌数量+
 
-  /**
-   * 查看大图
-   */
-  bigImg: function(event){
-    util.bigImg(event);
   },
 
-  /**
-   * 下载PDF
-   */
-  downPDF: function (event) {
-    util.downPDF(event);
-  }
+  minusHardNum: function () { //硬件数量-
+
+  },
+
+  plusHardNum: function () { //硬件数量+
+
+  },
+
+  minusSoftNum: function () { //软件数量-
+
+  },
+
+  plusSoftNum: function () { //软件数量+
+
+  },
 
 })

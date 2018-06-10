@@ -124,6 +124,18 @@ function rqTenderDetail(tenderID, successCb, errorCb, completeCb) {
 }
 
 
+/**
+ * 报价表
+ */
+function rqPriceDetail(tenderType, successCb, errorCb, completeCb) {
+  request(api.API_PRICEDETAIL.replace(':tenderType', tenderType), {}, successCb, errorCb, completeCb);
+}
+function rqPriceList(productType, productHeight, mangerNumber, limit, offset, data, successCb, errorCb, completeCb) {
+  request(api.API_PRICELIST.replace(':productType', productType).replace(':productHeight', productHeight).replace(':mangerNumber', mangerNumber).replace(':limit', limit).replace(':offset', offset), data, successCb, errorCb, completeCb);
+}
+
+
+
 
 module.exports = {
   rqLogin: rqLogin,
@@ -144,5 +156,6 @@ module.exports = {
   rqRequireDetail: rqRequireDetail,
   rqStrategyDetail: rqStrategyDetail,
   rqTenderDetail: rqTenderDetail,
+  rqPriceList: rqPriceList,
 }
 

@@ -47,6 +47,7 @@ Page({
       selectedItem: "一纸通 / 全部",
     });
     this.getPriceList();
+    this.rqPriceList();
   },
 
   fetchFilterData: function () { //获取筛选条件
@@ -288,6 +289,57 @@ Page({
     }, () => {
       this.hideFilter();
     });
+  },
+
+  rqPriceList: function(){
+    const data=this.data;
+    let datalist = this.formatDatalist();
+    request.rqPriceList("", "", "", 20, 0, datalist,
+      // {
+      //   quotationPrice: '[' + data._price + ',' + data.price_ + ']',
+      //   totalThroughput: '"' + data._ji + ',' + data.ji_ + '"',
+      //   gigabitInterface: '"' + data._qianzhao + ',' + data.qianzhao_ + '"',
+      //   tenThousandTrillionInterface: '"' + data._wanzhao + ',' + data.wanzhao_ + '"',
+      //   maximumConcurrentConnections: '"' + data._bingfa + ',' + data.bingfa_ + '"',
+      //   newConnection: '"' + data._new + ',' + data.new_ + '"',
+      //   IPSThroughput: '"' + data._ips + ',' + data.ips_ + '"',
+      //   IPsecVPNThroughput: '"' + data._ipsec + ',' + data.ipsec_ + '"',
+      //   SSLVPNThroughput: '"' + data._ssl + ',' + data.ssl_ + '"',
+      //   antivirusThroughput: '"' + data._bingdu + ',' + data.bingdu_ + '"'
+      // },
+    (data) => {
+      let _this = this;
+      console.log(data);
+    }, () => {
+    }, () => {
+    });
+  },
+
+  formatDatalist:function(){
+    const data = this.data;
+    // quotationPrice: '[' + data._price + ',' + data.price_ + ']',
+    // totalThroughput: '"' + data._ji + ',' + data.ji_ + '"',
+    // gigabitInterface: '"' + data._qianzhao + ',' + data.qianzhao_ + '"',
+    // tenThousandTrillionInterface: '"' + data._wanzhao + ',' + data.wanzhao_ + '"',
+    // maximumConcurrentConnections: '"' + data._bingfa + ',' + data.bingfa_ + '"',
+    // newConnection: '"' + data._new + ',' + data.new_ + '"',
+    // IPSThroughput: '"' + data._ips + ',' + data.ips_ + '"',
+    // IPsecVPNThroughput: '"' + data._ipsec + ',' + data.ipsec_ + '"',
+    // SSLVPNThroughput: '"' + data._ssl + ',' + data.ssl_ + '"',
+    // antivirusThroughput: '"' + data._bingdu + ',' + data.bingdu_ + '"'
+
+    return {
+      quotationPrice: '[' + (data._price == "" && data.price_ == "" ? "" : (data._price != "" && data.price_ != "" ? data._price + "," + data.price_ : (data._price == "" ? data.price_ : data._price))) + ']',
+      totalThroughput: '[' + (data._ji == "" && data.ji_ == "" ? "" : (data._ji != "" && data.ji_ != "" ? data._ji + "," + data.ji_ : (data._ji == "" ? data.ji_ : data._ji))) + ']',
+      gigabitInterface: '[' + (data._qianzhao == "" && data.qianzhao_ == "" ? "" : (data._qianzhao != "" && data.qianzhao_ != "" ? data._qianzhao + "," + data.qianzhao_ : (data._qianzhao == "" ? data.qianzhao_ : data._qianzhao))) + ']',
+      tenThousandTrillionInterface: '[' + (data._wanzhao == "" && data.wanzhao_ == "" ? "" : (data._wanzhao != "" && data.wanzhao_ != "" ? data._wanzhao + "," + data.wanzhao_ : (data._wanzhao == "" ? data.wanzhao_ : data._wanzhao))) + ']',
+      maximumConcurrentConnections: '[' + (data._bingfa == "" && data.bingfa_ == "" ? "" : (data._bingfa != "" && data.bingfa_ != "" ? data._bingfa + "," + data.bingfa_ : (data._bingfa == "" ? data.bingfa_ : data._bingfa))) + ']',
+      newConnection: '[' + (data._new == "" && data.new_ == "" ? "" : (data._new != "" && data.new_ != "" ? data._new + "," + data.new_ : (data._new == "" ? data.new_ : data._new))) + ']',
+      IPSThroughput: '[' + (data._ips == "" && data.ips_ == "" ? "" : (data._ips != "" && data.ips_ != "" ? data._ips + "," + data.ips_ : (data._ips == "" ? data.ips_ : data._ips))) + ']',
+      IPsecVPNThroughput: '[' + (data._ipsec == "" && data.ipsec_ == "" ? "" : (data._ipsec != "" && data.ipsec_ != "" ? data._ipsec + "," + data.ipsec_ : (data._ipsec == "" ? data.ipsec_ : data._ipsec))) + ']',
+      SSLVPNThroughput: '[' + (data._ssl == "" && data.ssl_ == "" ? "" : (data._ssl != "" && data.ssl_ != "" ? data._ssl + "," + data.ssl_ : (data._ssl == "" ? data.ssl_ : data._ssl))) + ']',
+      antivirusThroughput: '[' + (data._bingdu == "" && data.bingdu_ == "" ? "" : (data._bingdu != "" && data.bingdu_ != "" ? data._bingdu + "," + data.bingdu_ : (data._bingdu == "" ? data.bingdu_ : data._bingdu))) + ']',
+    };
   }
 
 })

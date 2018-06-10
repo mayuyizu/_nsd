@@ -57,6 +57,35 @@
 
 
 .mt10{margin-top:10rpx;}
-.mt40{margin-top:10rpx;}
+.mt20{margin-top:20rpx;}
+.mt40{margin-top:40rpx;}
+.ml10{margin-left:10rpx;}
 .p20{padding:20rpx;}
+.f30{font-size: 30rpx;}
 .footer{text-align: center; background-color: lightblue; font-size: 20rpx;}
+
+/*toast*/
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    padding: 1.066667rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: 200;
+}
+
+.alert.info {
+    text-align: left;
+}
+
+.alert view {
+    color: white;
+    font-size: 30rpx;
+    margin-top: 0.533333rem;
+}

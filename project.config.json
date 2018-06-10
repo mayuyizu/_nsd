@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.98",
 	"appid": "wx46a1a65bf7cfbade",
-	"projectname": "_NSD",
+	"projectname": "%E9%94%80%E5%94%AE%E5%B7%A5%E5%85%B7",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -21,6 +21,10 @@
 			"list": []
 		},
 		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
 			"current": -1,
 			"list": []
 		},

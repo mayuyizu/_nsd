@@ -5,11 +5,12 @@ module.exports = {
   //登录
   API_LOGIN: API_BASE + 'auth.Userldap.login.json?username=":username"&password=":password"',
 
-  //首页
+  //调查问卷
 
 
   //报价表
-
+  API_PRICEDETAIL: API_BASE + 'sale.quotation.getQuotationDetailMobile.json?quotationID=":quotationID"',
+  API_PRICELIST: API_BASE + 'sale.quotation.getQuotationListMobile.json?productType=":productType"&productHeight=":productHeight"&mangerNumber=":mangerNumber"&limit=:limit&offset=:offset',
 
   //一纸通
   API_ST_ONEPAPERLIST: API_BASE + 'sale.onePaper.getOnePaperListMobile.json?onePaperType=":onePaperType"',
